@@ -1,0 +1,53 @@
+#!/bin/bash
+
+
+
+PKGS=("kitty" "wofi" "amberol")
+
+
+DOTFILES_DIR=$(pwd)
+CONFIG_DIR="$HOME/.config"
+
+
+echo "--- Iniciando Instalación ---"
+
+
+
+if ! command -v yay >/dev/null 2>&1; then
+    echo "❌ Error: 'yay' no encontrado."
+    exit 1
+fi
+
+echo "Sincronizando repositorios y actualizando sistema..."
+yay -Syu --noconfirm
+
+
+
+for PKG in "${PKGS[@]}"; do
+    if ! pacman -Qi "$PKG" >/dev/null 2>&1; then
+        echo "Instalando $PKG..."
+        yay -S --noconfirm "$PKG"
+    fi
+done
+
+
+deploy_config() {
+    local target="$CONFIG_DIR/$1"
+    local source="$DOTFILES_DIR/$1"
+
+    if [ -d "$source" ]; then
+        echo "Limpiando y vinculando: $1"
+        rm -rf "$target"
+        ln -sf "$source" "$target"
+    else
+        echo "⚠️  No se encontró la carpeta '$1' en este repositorio."
+    fi
+}
+
+
+deploy_config "kitty"
+deploy_config "wofi"
+deploy_config "hypr"
+
+
+echo "✨ Proceso completado. Solo se modificaron las carpetas listadas."
