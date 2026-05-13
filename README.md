@@ -1,6 +1,6 @@
 Hola!
 
-Paso 1: copiar todo el git en una carpeta llamada "dofiles"
+Paso 1: copiar todo el git en una carpeta llamada "dotfiles"
 
 Paso 2: ejecutar chmod +x install.sh
 
