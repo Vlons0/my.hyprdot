@@ -1,25 +1,15 @@
 @import "colors.scss";
 
-.bar-container {
-    background-color: $background;
-    color: $foreground;
-}
-
-.menu-trigger {
-    color: $primary;
-}
-
-// Configuración Global
 * {
-    all: unset; // Reset total
+    all: unset;
     font-family: "JetBrainsMono Nerd Font";
 }
 
-// Estilos de la Barra Principal
-.bar {
+// Barra superior
+.bar-container {
     background-color: rgba($background, 0.8);
     color: $foreground;
-    padding: 10px;
+    padding: 0px 10px;
 }
 
 .menu-trigger {
@@ -28,53 +18,65 @@
     padding-left: 10px;
 }
 
+.workspaces button {
+    padding: 0px 5px;
+}
+
 .workspaces button:hover {
     color: $accent;
 }
 
-// Sidebar (Menú Desplegable)
+.music label {
+    color: $foreground;
+}
+
+.sidestuff label {
+    color: $foreground;
+}
+
+// Menú Lateral
 .sidebar-container {
     background-color: rgba($background, 0.7);
     border-radius: 0px 10px 10px 0px;
     padding: 20px;
     border: 2px solid $primary;
-
-    button {
-        background-color: rgba($primary, 0.1);
-        color: $foreground;
-        padding: 10px;
-        border-radius: 8px;
-        margin-bottom: 5px;
-
-        &:hover {
-            background-color: $primary;
-            color: $background;
-        }
-    }
 }
 
 .sidebar-title {
     color: $accent;
     font-weight: bold;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
-// Métricas (RAM, CPU, etc.)
-.metric scale trough {
-    background-color: rgba($foreground, 0.1);
-    border-radius: 50px;
-    min-height: 3px;
-    min-width: 50px;
-    margin-left: 10px;
-    margin-right: 20px;
-
-    highlight {
-        background-color: $accent;
-        border-radius: 10px;
-    }
+.sidebar-container button {
+    background-color: rgba($primary, 0.15);
+    color: $foreground;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
 }
 
-.label-ram {
-    font-size: large;
+.sidebar-container button:hover {
+    background-color: $primary;
+    color: $background;
+}
+
+// Métricas (RAM, Disco, Vol)
+.metric .label {
     color: $primary;
+    margin-right: 5px;
+}
+
+.metric scale trough {
+    background-color: rgba($foreground, 0.2);
+    border-radius: 50px;
+    min-height: 4px;
+    min-width: 50px;
+    margin-right: 15px;
+}
+
+.metric scale trough highlight {
+    background-color: $accent;
+    border-radius: 10px;
 }

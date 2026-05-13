@@ -16,9 +16,16 @@
 
 (defwidget workspaces []
   (eventbox :onhover "eww close sidebar"
-    (box :class "workspaces" :spacing 10
-      (for i in "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
-        (button :onclick "hyprctl dispatch workspace ${i}" i)))))
+    (box :class "workspaces" :orientation "h" :space-evenly true :halign "start" :spacing 10
+      (button :onclick "hyprctl dispatch workspace 1" 1)
+      (button :onclick "hyprctl dispatch workspace 2" 2)
+      (button :onclick "hyprctl dispatch workspace 3" 3)
+      (button :onclick "hyprctl dispatch workspace 4" 4)
+      (button :onclick "hyprctl dispatch workspace 5" 5)
+      (button :onclick "hyprctl dispatch workspace 6" 6)
+      (button :onclick "hyprctl dispatch workspace 7" 7)
+      (button :onclick "hyprctl dispatch workspace 8" 8)
+      (button :onclick "hyprctl dispatch workspace 9" 9))))
 
 (defwidget sidebar_content []
   (eventbox :onhoverlost "eww close sidebar"
@@ -30,26 +37,27 @@
       (button :onclick "wlogout &" "⏻ Apagar"))))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :spacing 15 :halign "end"
+  (box :class "sidestuff" :orientation "h" :space-evenly false :spacing 15 :halign "end"
     (metric :label "🔊" :value volume :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
     (metric :label "" :value {EWW_RAM.used_mem_perc} :onchange "")
     (metric :label "💾" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
     (label :text time)))
 
 (defwidget music []
-  (box :class "music" :halign "center"
+  (box :class "music" :orientation "h" :space-evenly false :halign "center"
     (label :text {music != "" ? "🎵 ${music}" : ""})))
 
 (defwidget metric [label value onchange]
-  (box :class "metric" :space-evenly false
+  (box :orientation "h" :class "metric" :space-evenly false
     (label :text label :class "label")
     (scale :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)))
 
-;; --- Windows y Variables ---
+;; --- Ventanas Secundarias y Variables ---
 (defwindow sidebar
   :monitor 0
-  :stacking "fg"
   :geometry (geometry :x "0%" :y "30px" :width "250px" :height "95%" :anchor "top left")
+  :stacking "fg"
+  :exclusive false
   (sidebar_content))
 
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
