@@ -2,7 +2,7 @@
 
 
 
-PKGS=("kitty" "wofi" "amberol")
+PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" )
 
 
 DOTFILES_DIR=$(pwd)
@@ -48,6 +48,6 @@ deploy_config() {
 deploy_config "kitty"
 deploy_config "wofi"
 deploy_config "hypr"
-
+deploy_config "eww"
 
 echo "✨ Proceso completado. Solo se modificaron las carpetas listadas."
