@@ -2,7 +2,7 @@
 
 
 
-PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" )
+PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd")
 
 
 DOTFILES_DIR=$(pwd)
@@ -49,5 +49,8 @@ deploy_config "kitty"
 deploy_config "wofi"
 deploy_config "hypr"
 deploy_config "eww"
+deploy_config "matugen"
+deploy_config "waybar"
+
 
 echo "✨ Proceso completado. Solo se modificaron las carpetas listadas."

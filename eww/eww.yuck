@@ -1,23 +1,28 @@
-(defwidget bar []
-  (centerbox :orientation "h"
-    (box :orientation "h" :space-evenly false :spacing 15
-      (menu_trigger)
-      (workspaces))
-    (eventbox :onhover "eww close sidebar" (music))
-    (eventbox :onhover "eww close sidebar" (sidestuff))))
+(defwindow bar
+  :monitor 0
+  :exclusive true
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
+  (box :class "bar-container"
+    (centerbox :orientation "h"
+      (box :orientation "h" :space-evenly false :spacing 15
+        (menu_trigger)
+        (workspaces))
+      (eventbox :onhover "eww close sidebar" (music))
+      (eventbox :onhover "eww close sidebar" (sidestuff)))))
 
 (defwidget menu_trigger []
   (eventbox :onhover "eww open sidebar"
-    (box :class "menu-trigger"
-         :halign "start"
-      "  Menú")))
+    (box :class "menu-trigger" :halign "start" "  Menú")))
+
+(defwidget workspaces []
+  (eventbox :onhover "eww close sidebar"
+    (box :class "workspaces" :spacing 10
+      (for i in "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        (button :onclick "hyprctl dispatch workspace ${i}" i)))))
 
 (defwidget sidebar_content []
   (eventbox :onhoverlost "eww close sidebar"
-    (box :class "sidebar-container" 
-         :orientation "v" 
-         :space-evenly false 
-         :spacing 15
+    (box :class "sidebar-container" :orientation "v" :space-evenly false :spacing 15
       (label :text "Accesos Rápidos" :class "sidebar-title")
       (button :onclick "firefox &" "🌐 Navegador")
       (button :onclick "kitty &" "💻 Terminal")
@@ -25,79 +30,28 @@
       (button :onclick "wlogout &" "⏻ Apagar"))))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-    (metric :label "🔊"
-            :value volume
-            :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
-    (metric :label ""
-            :value {EWW_RAM.used_mem_perc}
-            :onchange "")
-    (metric :label "💾"
-            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
-            :onchange "")
-    time))
-
-(defwidget workspaces []
-  (eventbox :onhover "eww close sidebar"
-    (box :class "workspaces"
-         :orientation "h"
-         :space-evenly true
-         :halign "start"
-         :spacing 10
-      (button :onclick "hyprctl dispatch workspace 1" 1)
-      (button :onclick "hyprctl dispatch workspace 2" 2)
-      (button :onclick "hyprctl dispatch workspace 3" 3)
-      (button :onclick "hyprctl dispatch workspace 4" 4)
-      (button :onclick "hyprctl dispatch workspace 5" 5)
-      (button :onclick "hyprctl dispatch workspace 6" 6)
-      (button :onclick "hyprctl dispatch workspace 7" 7)
-      (button :onclick "hyprctl dispatch workspace 8" 8)
-      (button :onclick "hyprctl dispatch workspace 9" 9))))
+  (box :class "sidestuff" :spacing 15 :halign "end"
+    (metric :label "🔊" :value volume :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+    (metric :label "" :value {EWW_RAM.used_mem_perc} :onchange "")
+    (metric :label "💾" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
+    (label :text time)))
 
 (defwidget music []
-  (box :class "music"
-       :orientation "h"
-       :space-evenly false
-       :halign "center"
-    {music != "" ? "🎵 ${music}" : ""}))
+  (box :class "music" :halign "center"
+    (label :text {music != "" ? "🎵 ${music}" : ""})))
 
 (defwidget metric [label value onchange]
-  (box :orientation "h"
-       :class "metric"
-       :space-evenly false
-    (box :class "label" label)
-    (scale :min 0
-           :max 101
-           :active {onchange != ""}
-           :value value
-           :onchange onchange)))
+  (box :class "metric" :space-evenly false
+    (label :text label :class "label")
+    (scale :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)))
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-
-(defpoll volume :interval "1s"
-  "scripts/getvol")
-
-(defpoll time :interval "10s"
-  "date '+%H:%M %b %d, %Y'")
-
-(defwindow bar
-  :monitor 0
-  :exclusive true
-  :geometry (geometry :x "0%"
-                      :y "0%"
-                      :width "100%"
-                      :height "30px"
-                      :anchor "top center")
-  (bar))
-
+;; --- Windows y Variables ---
 (defwindow sidebar
   :monitor 0
-  :geometry (geometry :x "0%"
-                      :y "30px"
-                      :width "250px"
-                      :height "95%"
-                      :anchor "top left")
   :stacking "fg"
-  :exclusive false
+  :geometry (geometry :x "0%" :y "30px" :width "250px" :height "95%" :anchor "top left")
   (sidebar_content))
+
+(deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
+(defpoll volume :interval "1s" "scripts/getvol")
+(defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")

@@ -1,91 +1,80 @@
-{
-    font-family: "JetBrainsMono Nerd Font";
+@import "colors.scss";
+
+.bar-container {
+    background-color: $background;
+    color: $foreground;
 }
 
 .menu-trigger {
-    font-family: "JetBrainsMono Nerd Font";
-
+    color: $primary;
 }
 
+// Configuración Global
 * {
-  all: unset; //Unsets everything so you can style everything from scratch
+    all: unset; // Reset total
+    font-family: "JetBrainsMono Nerd Font";
 }
 
-//Global Styles
+// Estilos de la Barra Principal
 .bar {
-  background-color: #3a3a3a;
-  color: #b0b4bc;
-  padding: 10px;
-}
-
-// Styles on classes (see eww.yuck for more information)
-
-.sidestuff slider {
-  all: unset;
-  color: #ffd5cd;
-}
-
-.metric scale trough highlight {
-  all: unset;
-  background-color: #D35D6E;
-  color: #000000;
-  border-radius: 10px;
-}
-.metric scale trough {
-  all: unset;
-  background-color: #4e4e4e;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.metric scale trough highlight {
-  all: unset;
-  background-color: #D35D6E;
-  color: #000000;
-  border-radius: 10px;
-}
-.metric scale trough {
-  all: unset;
-  background-color: #4e4e4e;
-  border-radius: 50px;
-  min-height: 3px;
-  min-width: 50px;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.label-ram {
-  font-size: large;
-}
-.workspaces button:hover {
-  color: #D35D6E;
+    background-color: rgba($background, 0.8);
+    color: $foreground;
+    padding: 10px;
 }
 
 .menu-trigger {
-    color: #89b4fa;
+    color: $primary;
     font-weight: bold;
     padding-left: 10px;
 }
 
+.workspaces button:hover {
+    color: $accent;
+}
+
+// Sidebar (Menú Desplegable)
 .sidebar-container {
-    background-color: #1e1e2e;
+    background-color: rgba($background, 0.7);
     border-radius: 0px 10px 10px 0px;
     padding: 20px;
-    border: 2px solid #cba6f7;
+    border: 2px solid $primary;
+
+    button {
+        background-color: rgba($primary, 0.1);
+        color: $foreground;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+
+        &:hover {
+            background-color: $primary;
+            color: $background;
+        }
+    }
 }
 
-.sidebar-container button {
-    background-color: #313244;
-    color: #cdd6f4;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 5px;
+.sidebar-title {
+    color: $accent;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.sidebar-container button:hover {
-    background-color: #89b4fa;
-    color: #11111b;
+// Métricas (RAM, CPU, etc.)
+.metric scale trough {
+    background-color: rgba($foreground, 0.1);
+    border-radius: 50px;
+    min-height: 3px;
+    min-width: 50px;
+    margin-left: 10px;
+    margin-right: 20px;
+
+    highlight {
+        background-color: $accent;
+        border-radius: 10px;
+    }
 }
 
-
+.label-ram {
+    font-size: large;
+    color: $primary;
+}
