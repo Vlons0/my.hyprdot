@@ -1,0 +1,7 @@
+width=400
+    height=300
+    location=center
+    show=drun
+    prompt=Buscar...
+    filter_rate=100
+    allow_images=true
