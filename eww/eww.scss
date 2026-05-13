@@ -1,3 +1,12 @@
+{
+    font-family: "JetBrainsMono Nerd Font";
+}
+
+.menu-trigger {
+    font-family: "JetBrainsMono Nerd Font";
+
+}
+
 * {
   all: unset; //Unsets everything so you can style everything from scratch
 }
@@ -52,4 +61,31 @@
 .workspaces button:hover {
   color: #D35D6E;
 }
+
+.menu-trigger {
+    color: #89b4fa;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.sidebar-container {
+    background-color: #1e1e2e;
+    border-radius: 0px 10px 10px 0px;
+    padding: 20px;
+    border: 2px solid #cba6f7;
+}
+
+.sidebar-container button {
+    background-color: #313244;
+    color: #cdd6f4;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.sidebar-container button:hover {
+    background-color: #89b4fa;
+    color: #11111b;
+}
+
 

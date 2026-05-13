@@ -3,32 +3,14 @@
     (box :orientation "h" :space-evenly false :spacing 15
       (menu_trigger)
       (workspaces))
-    (eventbox :onhover "eww close sidebar" (music))
-    (eventbox :onhover "eww close sidebar" (sidestuff))))
-
-(defwidget menu_trigger []
-  (eventbox :onhover "eww open sidebar"
-    (box :class "menu-trigger"
-         :halign "start"
-      "  Menú")))
-
-(defwidget sidebar_content []
-  (eventbox :onhoverlost "eww close sidebar"
-    (box :class "sidebar-container" 
-         :orientation "v" 
-         :space-evenly false 
-         :spacing 15
-      (label :text "Accesos Rápidos" :class "sidebar-title")
-      (button :onclick "firefox &" "🌐 Navegador")
-      (button :onclick "kitty &" "💻 Terminal")
-      (button :onclick "thunar ~/Documentos/PAES &" "📚 Material PAES")
-      (button :onclick "wlogout &" "⏻ Apagar"))))
+    (music)
+    (sidestuff)))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
     (metric :label "🔊"
             :value volume
-            :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
+            :onchange "amixer -D pulse sset Master {}%")
     (metric :label ""
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
@@ -38,28 +20,28 @@
     time))
 
 (defwidget workspaces []
-  (eventbox :onhover "eww close sidebar"
-    (box :class "workspaces"
-         :orientation "h"
-         :space-evenly true
-         :halign "start"
-         :spacing 10
-      (button :onclick "hyprctl dispatch workspace 1" 1)
-      (button :onclick "hyprctl dispatch workspace 2" 2)
-      (button :onclick "hyprctl dispatch workspace 3" 3)
-      (button :onclick "hyprctl dispatch workspace 4" 4)
-      (button :onclick "hyprctl dispatch workspace 5" 5)
-      (button :onclick "hyprctl dispatch workspace 6" 6)
-      (button :onclick "hyprctl dispatch workspace 7" 7)
-      (button :onclick "hyprctl dispatch workspace 8" 8)
-      (button :onclick "hyprctl dispatch workspace 9" 9))))
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "wmctrl -s 0" 1)
+    (button :onclick "wmctrl -s 1" 2)
+    (button :onclick "wmctrl -s 2" 3)
+    (button :onclick "wmctrl -s 3" 4)
+    (button :onclick "wmctrl -s 4" 5)
+    (button :onclick "wmctrl -s 5" 6)
+    (button :onclick "wmctrl -s 6" 7)
+    (button :onclick "wmctrl -s 7" 8)
+    (button :onclick "wmctrl -s 8" 9)))
 
 (defwidget music []
   (box :class "music"
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵 ${music}" : ""}))
+    {music != "" ? "🎵${music}" : ""}))
+
 
 (defwidget metric [label value onchange]
   (box :orientation "h"
@@ -71,6 +53,14 @@
            :active {onchange != ""}
            :value value
            :onchange onchange)))
+
+
+(defwidget menu_trigger []
+  (eventbox :onhover "eww open sidebar"
+    (box :class "menu-trigger"
+         :halign "start"
+      "  Menú")))
+
 
 (deflisten music :initial ""
   "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
@@ -101,3 +91,15 @@
   :stacking "fg"
   :exclusive false
   (sidebar_content))
+
+(defwidget sidebar_content []
+  (eventbox :onhoverlost "eww close sidebar"
+    (box :class "sidebar-container" 
+         :orientation "v" 
+         :space-evenly false 
+         :spacing 15
+      (label :text "Accesos Rápidos" :class "sidebar-title")
+      (button :onclick "firefox &" "🌐 Navegador")
+      (button :onclick "kitty &" "💻 Terminal")
+      (button :onclick "thunar ~/Documentos/PAES &" "📚 Material PAES")
+      (button :onclick "wlogout &" "⏻ Apagar"))))
