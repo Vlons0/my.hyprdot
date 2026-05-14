@@ -13,7 +13,7 @@
 (defwindow sidebar
   :monitor 0
   :stacking "fg"
-  :geometry (geometry :x "0%" :y "6px" :width "250px" :height "92%" :anchor "top left")
+  :geometry (geometry :x "-0.5%" :y "6px" :width "250px" :height "92%" :anchor "top left")
   (sidebar_content))
 
 (defwidget sidebar_content []
