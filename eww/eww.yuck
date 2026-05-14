@@ -22,20 +22,19 @@
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Apariencia" :class "sidebar-title" :halign "start")
         (box :class "mode-selector" :spacing 10
-          (button :onclick "/home/alonso/.config/eww/scripts/theme_man dark" "󰖔 Oscuro")
-          (button :onclick "/home/alonso/.config/eww/scripts/theme_man light" "󰖙 Claro"))
+          (button :onclick "~/dotfiles/eww/scripts/theme_man dark" "󰖔 Oscuro")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man light" "󰖙 Claro"))
         (label :text "Estilo de Color" :class "sidebar-subtitle" :halign "start")
         (box :class "type-selector" :orientation "v" :spacing 5
-          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
-          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type expressive" "🎨 Expresivo")
-          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
+          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
+          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
+          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Aplicaciones" :class "sidebar-title" :halign "start")
         (box :class "app-list" :orientation "v" :spacing 8
-          (button :onclick "firefox &" "🌐 Navegador")
-          (button :onclick "kitty &" "💻 Terminal")
-          (button :onclick "thunar ~/Documentos/PAES &" "📚 Material PAES")
+          (button :onclick "firefox &" "󰈹 Navegador")
+          (button :onclick "kitty &" " Terminal")
           (button :onclick "wlogout &" "⏻ Apagar"))))))
 
 ;; Widgets de soporte
@@ -56,7 +55,8 @@
     (label :text time)))
 
 (defwidget music []
-  (box :class "music" :halign "center" (label :text {music != "" ? "🎵 ${music}" : ""})))
+  (box :class "music" :orientation "h" :space-evenly false :halign "center"
+    (label :text {music != "" ? "${music}" : ""})))
 
 (defwidget metric [label value onchange]
   (box :orientation "h" :class "metric" :space-evenly false
