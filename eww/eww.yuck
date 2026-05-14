@@ -13,7 +13,7 @@
 (defwindow sidebar
   :monitor 0
   :stacking "fg"
-  :geometry (geometry :x "0%" :y "30px" :width "250px" :height "95%" :anchor "top left")
+  :geometry (geometry :x "0%" :y "6px" :width "250px" :height "92%" :anchor "top left")
   (sidebar_content))
 
 (defwidget sidebar_content []
@@ -35,7 +35,13 @@
         (box :class "app-list" :orientation "v" :spacing 8
           (button :onclick "firefox &" "󰈹 Navegador")
           (button :onclick "kitty &" " Terminal")
-          (button :onclick "wlogout &" "⏻ Apagar"))))))
+          (button :onclick "wlogout &" "⏻ Apagar")))
+      (box :class "separator")
+      (box :orientation "v" :space-evenly false :spacing 10
+        (label :text "Wallpaper" :class "sidebar-title" :halign "start")
+        (box :orientation "v" :spacing 8
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-online &" " Random Online")
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-local &" " Local Random"))))))
 
 ;; Widgets de soporte
 (defwidget menu_trigger []

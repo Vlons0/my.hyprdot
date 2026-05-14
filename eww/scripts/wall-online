@@ -1,0 +1,14 @@
+#!/bin/bash
+MONITOR="eDP-1"
+RES=$(hyprctl monitors -j | jq -r '.[] | select(.name=="'$MONITOR'") | "\(.width)x\(.height)"')
+
+URL=$(curl -s "https://nekos.best/api/v2/waifu" | jq -r '.results[0].url')
+curl -s "$URL" -o /tmp/eww-wall-raw.png
+magick /tmp/eww-wall-raw.png -resize ${RES}^ -gravity center -extent ${RES} /tmp/eww-wall-online.png
+
+hyprctl hyprpaper preload /tmp/eww-wall-online.png
+hyprctl hyprpaper wallpaper "$MONITOR,/tmp/eww-wall-online.png"
+echo "/tmp/eww-wall-online.png" > ~/dotfiles/eww/scripts/.wallpaper-actual
+matugen image /tmp/eww-wall-online.png --source-color-index 0
+
+sleep 0.5 && eww kill && eww open bar &

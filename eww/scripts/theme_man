@@ -1,22 +1,24 @@
 #!/bin/bash
 
+WALLPAPER=$(cat ~/dotfiles/eww/scripts/.wallpaper-actual 2>/dev/null || echo "/home/alonso/Descargas/mi_fondo.png")
+
 case "$1" in
     light)
-        matugen image /home/alonso/Descargas/mi_fondo.png -m light --source-color-index 0
+        matugen image "$WALLPAPER" -m light --source-color-index 0
         ;;
     dark)
-        matugen image /home/alonso/Descargas/mi_fondo.png -m dark --source-color-index 0
+        matugen image "$WALLPAPER" -m dark --source-color-index 0
         ;;
     type)
         case "$2" in
             vibrant)
-                matugen image /home/alonso/Descargas/mi_fondo.png -t scheme-vibrant --source-color-index 0
+                matugen image "$WALLPAPER" -t scheme-vibrant --source-color-index 0
                 ;;
             expressive)
-                matugen image /home/alonso/Descargas/mi_fondo.png -t scheme-expressive --source-color-index 0
+                matugen image "$WALLPAPER" -t scheme-expressive --source-color-index 0
                 ;;
             monochrome)
-                matugen image /home/alonso/Descargas/mi_fondo.png -t scheme-monochrome --source-color-index 0
+                matugen image "$WALLPAPER" -t scheme-monochrome --source-color-index 0
                 ;;
         esac
         ;;

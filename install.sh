@@ -2,7 +2,7 @@
 
 
 
-PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd")
+PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd" "jq" "hyprpaper" "imagemagick")
 
 
 DOTFILES_DIR=$(pwd)
@@ -21,6 +21,7 @@ fi
 echo "Sincronizando repositorios y actualizando sistema..."
 yay -Syu --noconfirm
 
+chmod +x ~/dotfiles/eww/scripts/theme_man ~/dotfiles/eww/scripts/wall-online ~/dotfiles/eww/scripts/wall-local
 
 
 for PKG in "${PKGS[@]}"; do
@@ -51,6 +52,7 @@ deploy_config "hypr"
 deploy_config "eww"
 deploy_config "matugen"
 deploy_config "waybar"
+
 
 
 echo "✨ Proceso completado. Solo se modificaron las carpetas listadas."
