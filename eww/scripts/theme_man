@@ -15,7 +15,7 @@ case "$1" in
                 matugen image "$WALLPAPER" -t scheme-vibrant --source-color-index 0
                 ;;
             expressive)
-                matugen image "$WALLPAPER" -t scheme-expressive --source-color-index 0
+                matugen image "$WALLPAPER" -t scheme-fruit-salad --source-color-index 0
                 ;;
             monochrome)
                 matugen image "$WALLPAPER" -t scheme-monochrome --source-color-index 0
@@ -23,5 +23,7 @@ case "$1" in
         esac
         ;;
 esac
+
+hyprctl reload
 
 sleep 0.5 && eww kill && eww open bar &

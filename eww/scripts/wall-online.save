@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# 1. Configuración de entorno
+RES="1366x768"
+OUTPUT="/tmp/eww-wall-online.png"
+# Obtenemos el monitor. Si falla, usamos eDP-1 como fallback.
+MONITOR=$(hyprctl monitors -j | jq -r '.[0].name' || echo "eDP-1")
+
+# 2. Obtener imagen de nekos.best
+URL=$(curl -s "https://nekos.best/api/v2/neko" | jq -r '.results[0].url')
+
+if [ -z "$URL" ]; then
+    echo "Error: No se pudo obtener la URL de la imagen."
+    exit 1
+fi
+
+# 3. Descargar y procesar con ImageMagick
+curl -s "$URL" -o /tmp/raw_wall
+magick /tmp/raw_wall -resize "${RES}^" -gravity center -extent "$RES" "$OUTPUT"
+
+# 4. Matugen (¡CORREGIDO con los valores de tu terminal!)
+# Usamos 'saturation' para que busque el color más vivo.
+matugen image --mode dark --prefer saturation "$OUTPUT"
+
+# 5. Hyprpaper (Ajuste de sintaxis)
+# Primero cargamos la imagen en memoria
+hyprctl hyprpaper preload "$OUTPUT" > /dev/null 2>&1
+
+# Aplicamos el wallpaper. Sin espacios después de la coma.
+hyprctl hyprpaper wallpaper "$MONITOR,$OUTPUT

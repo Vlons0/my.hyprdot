@@ -7,8 +7,15 @@
       (box :orientation "h" :space-evenly false :spacing 15
         (menu_trigger)
         (workspaces))
-      (eventbox :onhover "eww close sidebar" (music))
-      (eventbox :onhover "eww close sidebar" (sidestuff)))))
+      (label :text "󰣇" :class "arch-logo")
+      (eventbox :onhover "eww close sidebar"
+        (box :class "sidestuff" :orientation "h" :space-evenly false :spacing 15 :halign "end"
+          (music_widget)
+          (recorder)
+          (label :text {"CPU:${round(EWW_CPU.avg, 0)}%"} :class "ram-label")
+          (label :text {"RAM:${round(EWW_RAM.used_mem_perc, 0)}%"} :class "ram-label")
+          (label :text {"VOL:${volume}%"} :class "ram-label")
+          (label :text time))))))
 
 (defwindow sidebar
   :monitor 0
@@ -26,27 +33,26 @@
           (button :onclick "~/dotfiles/eww/scripts/theme_man light" "󰖙 Claro"))
         (label :text "Estilo de Color" :class "sidebar-subtitle" :halign "start")
         (box :class "type-selector" :orientation "v" :spacing 5
-          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
-          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
-          (button :onclick "/home/alonso/dotfiles/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Aplicaciones" :class "sidebar-title" :halign "start")
         (box :class "app-list" :orientation "v" :spacing 8
           (button :onclick "firefox &" "󰈹 Navegador")
-          (button :onclick "kitty &" " Terminal")
+          (button :onclick "kitty &" " Terminal")
           (button :onclick "wlogout &" "⏻ Apagar")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Wallpaper" :class "sidebar-title" :halign "start")
         (box :orientation "v" :spacing 8
-          (button :onclick "bash ~/dotfiles/eww/scripts/wall-online &" " Random Online")
-          (button :onclick "bash ~/dotfiles/eww/scripts/wall-local &" " Local Random"))))))
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-online &" " Random Online")
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-local &" " Local Random"))))))
 
-;; Widgets de soporte
 (defwidget menu_trigger []
   (eventbox :onhover "eww open sidebar"
-    (box :class "menu-trigger" :halign "start" "  Menú")))
+    (box :class "menu-trigger" :halign "start" "  Menú")))
 
 (defwidget workspaces []
   (eventbox :onhover "eww close sidebar"
@@ -54,21 +60,23 @@
       (for i in "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
         (button :onclick "hyprctl dispatch workspace ${i}" i)))))
 
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :spacing 15 :halign "end"
-    (metric :label "🔊" :value volume :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
-    (metric :label "" :value {EWW_RAM.used_mem_perc} :onchange "")
-    (label :text time)))
+(defvar music_hover false)
 
-(defwidget music []
-  (box :class "music" :orientation "h" :space-evenly false :halign "center"
-    (label :text {music != "" ? "${music}" : ""})))
+(defwidget music_widget []
+  (eventbox
+    :onhover "eww update music_hover=true"
+    :onhoverlost "eww update music_hover=false"
+    (label
+      :class "music-label"
+      :text {music != "" ? (music_hover ? music : "󰎆") : "󰎊"})))
 
-(defwidget metric [label value onchange]
-  (box :orientation "h" :class "metric" :space-evenly false
-    (label :text label :class "label")
-    (scale :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)))
+(defwidget recorder []
+  (button
+    :onclick "~/dotfiles/eww/scripts/recorder &"
+    :class {recording == "true" ? "rec-btn recording" : "rec-btn"}
+    {recording == "true" ? "⏺ REC" : "⏹"}))
 
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
-(defpoll volume :interval "1s" "scripts/getvol")
-(defpoll time :interval "10s" "date '+%H:%M %b %d, %Y'")
+(defpoll volume :interval "2s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}'")
+(defpoll time :interval "10s" "date '+%H:%M %d/%m/%Y'")
+(defpoll recording :interval "1s" "[ -f /tmp/gsr.pid ] && kill -0 $(cat /tmp/gsr.pid) 2>/dev/null && echo 'true' || echo 'false'")

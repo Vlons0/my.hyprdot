@@ -1,0 +1,11 @@
+#!/bin/bash
+PIDFILE="/tmp/gsr.pid"
+
+if [ -f "$PIDFILE" ] && kill -0 $(cat "$PIDFILE") 2>/dev/null; then
+    kill -SIGINT $(cat "$PIDFILE")
+    rm "$PIDFILE"
+else
+    OUTPUT=~/Videos/Video_$(date '+%Y-%m-%d_%H-%M-%S').mp4
+    gpu-screen-recorder -w eDP-1 -c mp4 -f 60 -q high -o "$OUTPUT" &
+    echo $! > "$PIDFILE"
+fi

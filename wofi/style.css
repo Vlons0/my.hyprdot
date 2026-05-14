@@ -1,7 +1,30 @@
-width=400
-height=300
-location=center
-show=drun
-prompt=Buscar...
-filter_rate=100
-allow_images=true
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+}
+
+#window {
+    background-color: #0d141c;
+    border: 2px solid #4dd9e4;
+    border-radius: 12px;
+    color: #dde3ee;
+}
+
+#input {
+    background-color: #3b4858;
+    color: #dde3ee;
+    border: 1px solid #4dd9e4;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 8px;
+}
+
+#entry {
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#entry:selected {
+    background-color: #4dd9e4;
+    color: #00363a;
+}

@@ -1,13 +1,12 @@
 #!/bin/bash
-MONITOR="eDP-1"
 WALLS="$HOME/dotfiles/wallpapers"
-
 WALL=$(find "$WALLS" -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.jpeg" \) | shuf -n 1)
 
-hyprctl hyprpaper preload "$WALL"
-hyprctl hyprpaper wallpaper "$MONITOR,$WALL"
-matugen image "$WALL" --source-color-index 0
+awww img "$WALL" --resize crop
 
 echo "$WALL" > ~/dotfiles/eww/scripts/.wallpaper-actual
+matugen image "$WALL" --source-color-index 0
+
+hyprctl reload
 
 sleep 0.5 && eww kill && eww open bar &

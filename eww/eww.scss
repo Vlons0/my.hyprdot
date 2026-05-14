@@ -49,6 +49,13 @@
     font-size: 16px;
 }
 
+.sidebar-subtitle {
+    color: $accent;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
 .sidebar-container button {
     background-color: rgba($primary, 0.15);
     color: $foreground;
@@ -79,4 +86,24 @@
 .metric scale trough highlight {
     background-color: $accent;
     border-radius: 10px;
+}
+
+.rec-btn {
+    color: $foreground;
+    padding: 0px 8px;
+}
+
+.rec-btn.recording {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.arch-logo {
+    color: $primary;
+    font-size: 18px;
+}
+
+.music-label {
+    color: $foreground;
+    padding: 0px 8px;
 }

@@ -1,5 +1,13 @@
 [config]
 
 [templates.eww]
-input_path = "~/.config/matugen/templates/eww-colors.scss"
-output_path = "~/.config/eww/colors.scss"
+input_path = "~/dotfiles/matugen/templates/eww-colors.scss"
+output_path = "~/dotfiles/eww/colors.scss"
+
+[templates.hyprland]
+input_path = "~/dotfiles/matugen/templates/hypr-colors.conf"
+output_path = "~/dotfiles/hypr/hypr-colors.conf"
+
+[templates.wofi]
+input_path = "~/dotfiles/matugen/templates/wofi-style.css"
+output_path = "~/dotfiles/wofi/style.css"
