@@ -10,6 +10,35 @@
       (eventbox :onhover "eww close sidebar" (music))
       (eventbox :onhover "eww close sidebar" (sidestuff)))))
 
+(defwindow sidebar
+  :monitor 0
+  :stacking "fg"
+  :geometry (geometry :x "0%" :y "30px" :width "250px" :height "95%" :anchor "top left")
+  (sidebar_content))
+
+(defwidget sidebar_content []
+  (eventbox :onhoverlost "eww close sidebar"
+    (box :class "sidebar-container" :orientation "v" :space-evenly false :spacing 20
+      (box :orientation "v" :space-evenly false :spacing 10
+        (label :text "Apariencia" :class "sidebar-title" :halign "start")
+        (box :class "mode-selector" :spacing 10
+          (button :onclick "/home/alonso/.config/eww/scripts/theme_man dark" "󰖔 Oscuro")
+          (button :onclick "/home/alonso/.config/eww/scripts/theme_man light" "󰖙 Claro"))
+        (label :text "Estilo de Color" :class "sidebar-subtitle" :halign "start")
+        (box :class "type-selector" :orientation "v" :spacing 5
+          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
+          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type expressive" "🎨 Expresivo")
+          (button :onclick "/home/alonso/.config/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
+      (box :class "separator")
+      (box :orientation "v" :space-evenly false :spacing 10
+        (label :text "Aplicaciones" :class "sidebar-title" :halign "start")
+        (box :class "app-list" :orientation "v" :spacing 8
+          (button :onclick "firefox &" "🌐 Navegador")
+          (button :onclick "kitty &" "💻 Terminal")
+          (button :onclick "thunar ~/Documentos/PAES &" "📚 Material PAES")
+          (button :onclick "wlogout &" "⏻ Apagar"))))))
+
+;; Widgets de soporte
 (defwidget menu_trigger []
   (eventbox :onhover "eww open sidebar"
     (box :class "menu-trigger" :halign "start" "  Menú")))
@@ -17,48 +46,22 @@
 (defwidget workspaces []
   (eventbox :onhover "eww close sidebar"
     (box :class "workspaces" :orientation "h" :space-evenly true :halign "start" :spacing 10
-      (button :onclick "hyprctl dispatch workspace 1" 1)
-      (button :onclick "hyprctl dispatch workspace 2" 2)
-      (button :onclick "hyprctl dispatch workspace 3" 3)
-      (button :onclick "hyprctl dispatch workspace 4" 4)
-      (button :onclick "hyprctl dispatch workspace 5" 5)
-      (button :onclick "hyprctl dispatch workspace 6" 6)
-      (button :onclick "hyprctl dispatch workspace 7" 7)
-      (button :onclick "hyprctl dispatch workspace 8" 8)
-      (button :onclick "hyprctl dispatch workspace 9" 9))))
-
-(defwidget sidebar_content []
-  (eventbox :onhoverlost "eww close sidebar"
-    (box :class "sidebar-container" :orientation "v" :space-evenly false :spacing 15
-      (label :text "Accesos Rápidos" :class "sidebar-title")
-      (button :onclick "firefox &" "🌐 Navegador")
-      (button :onclick "kitty &" "💻 Terminal")
-      (button :onclick "thunar ~/Documentos/PAES &" "📚 Material PAES")
-      (button :onclick "wlogout &" "⏻ Apagar"))))
+      (for i in "[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        (button :onclick "hyprctl dispatch workspace ${i}" i)))))
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :spacing 15 :halign "end"
     (metric :label "🔊" :value volume :onchange "wpctl set-volume @DEFAULT_AUDIO_SINK@ {}%")
     (metric :label "" :value {EWW_RAM.used_mem_perc} :onchange "")
-    (metric :label "💾" :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)} :onchange "")
     (label :text time)))
 
 (defwidget music []
-  (box :class "music" :orientation "h" :space-evenly false :halign "center"
-    (label :text {music != "" ? "🎵 ${music}" : ""})))
+  (box :class "music" :halign "center" (label :text {music != "" ? "🎵 ${music}" : ""})))
 
 (defwidget metric [label value onchange]
   (box :orientation "h" :class "metric" :space-evenly false
     (label :text label :class "label")
     (scale :min 0 :max 101 :active {onchange != ""} :value value :onchange onchange)))
-
-;; --- Ventanas Secundarias y Variables ---
-(defwindow sidebar
-  :monitor 0
-  :geometry (geometry :x "0%" :y "30px" :width "250px" :height "95%" :anchor "top left")
-  :stacking "fg"
-  :exclusive false
-  (sidebar_content))
 
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 (defpoll volume :interval "1s" "scripts/getvol")
