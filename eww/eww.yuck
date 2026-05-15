@@ -33,16 +33,16 @@
           (button :onclick "~/dotfiles/eww/scripts/theme_man light" "󰖙 Claro"))
         (label :text "Estilo de Color" :class "sidebar-subtitle" :halign "start")
         (box :class "type-selector" :orientation "v" :spacing 5
-          (button :onclick "~/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
-          (button :onclick "~/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Balance")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type expressive" " Vibrante")
           (button :onclick "~/dotfiles/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Aplicaciones" :class "sidebar-title" :halign "start")
         (box :class "app-list" :orientation "v" :spacing 8
           (button :onclick "firefox &" "󰈹 Navegador")
-          (button :onclick "kitty &" "󰄛 Terminal")
-          (button :onclick "wlogout &" "⏻ Apagar")))
+          (button :onclick "bash -c 'cd ~ && kitty &'" "󰄛 Terminal")
+          (button :onclick "bash ~/dotfiles/eww/scripts/shutdown-confirm &" "⏻ Apagar")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Wallpaper" :class "sidebar-title" :halign "start")

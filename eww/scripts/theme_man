@@ -1,29 +1,31 @@
 #!/bin/bash
-
 WALLPAPER=$(cat ~/dotfiles/eww/scripts/.wallpaper-actual 2>/dev/null || echo "/home/alonso/Descargas/mi_fondo.png")
+MODE_FILE=~/dotfiles/eww/scripts/.theme-mode
+MODE=$(cat "$MODE_FILE" 2>/dev/null || echo "dark")
 
 case "$1" in
     light)
-        matugen image "$WALLPAPER" -m light --source-color-index 0
+        echo "light" > "$MODE_FILE"
+        matugen image "$WALLPAPER" -m light --source-color-index 0 -t scheme-vibrant
         ;;
     dark)
-        matugen image "$WALLPAPER" -m dark --source-color-index 0
+        echo "dark" > "$MODE_FILE"
+        matugen image "$WALLPAPER" -m dark --source-color-index 0 -t scheme-vibrant
         ;;
     type)
         case "$2" in
             vibrant)
-                matugen image "$WALLPAPER" -t scheme-vibrant --source-color-index 0
+                matugen image "$WALLPAPER" -m $MODE -t scheme-fidelity --source-color-index 1
                 ;;
             expressive)
-                matugen image "$WALLPAPER" -t scheme-fruit-salad --source-color-index 0
+                matugen image "$WALLPAPER" -m $MODE -t scheme-fruit-salad --source-color-index 0
                 ;;
             monochrome)
-                matugen image "$WALLPAPER" -t scheme-monochrome --source-color-index 0
+                matugen image "$WALLPAPER" -m $MODE -t scheme-monochrome --source-color-index 0
                 ;;
         esac
         ;;
 esac
 
 hyprctl reload
-
-sleep 0.5 && eww kill && eww open bar &
+sleep 0.5 && eww reload && eww open bar &

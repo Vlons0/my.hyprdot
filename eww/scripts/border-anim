@@ -1,0 +1,5 @@
+#!/bin/bash
+while true; do
+    hyprctl keyword animation "borderangle, 1, 30, linear, once"
+    sleep 2.5
+done

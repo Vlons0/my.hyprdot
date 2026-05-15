@@ -1,0 +1,3 @@
+#!/bin/bash
+CURRENT=$(brightnessctl get)
+[ $CURRENT -gt 5 ] && brightnessctl set 5%-

@@ -107,3 +107,16 @@
     color: $foreground;
     padding: 0px 8px;
 }
+
+@keyframes glow-slide {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.bar-container {
+    border-bottom: 2px solid $primary;
+    animation: glow-slide 3s linear infinite;
+}
+
+

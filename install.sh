@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Variables de paquetes
-PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd" "jq" "hyprpaper" "imagemagick" "awww" "papirus-icon-theme" "flatpak" "wtype")
+PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd" "jq" "hyprpaper" "imagemagick" "awww" "papirus-icon-theme" "flatpak" "wtype" "zenity")
 
 # Variable para los paquetes que se instalarán exclusivamente con paru
 AUR_PACKAGES="hyprshade"
@@ -45,10 +45,7 @@ done
 
 # 7. Permisos de ejecución
 echo "Dando permisos a los scripts..."
-chmod +x ~/dotfiles/eww/scripts/theme_man \
-         ~/dotfiles/eww/scripts/wall-online \
-         ~/dotfiles/eww/scripts/wall-local \
-         ~/dotfiles/eww/scripts/recorder
+chmod +x ~/dotfiles/eww/scripts/theme_man ~/dotfiles/eww/scripts/wall-online ~/dotfiles/eww/scripts/wall-local ~/dotfiles/eww/scripts/recorder ~/dotfiles/eww/scripts/vol-up ~/dotfiles/eww/scripts/bright-down ~/dotfiles/eww/scripts/shutdown-confirm
 
 # 8. Despliegue de dotfiles
 deploy_config() {

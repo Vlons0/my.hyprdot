@@ -1,12 +1,9 @@
 #!/bin/bash
+eww close bar
 URL=$(curl -s "https://wallhaven.cc/api/v1/search?categories=010&purity=100&ratios=16x9&sorting=random&q=anime" | jq -r '.data[0].path')
 curl -s "$URL" -o /tmp/eww-wall-online.jpg
-
-awww img /tmp/eww-wall-online.jpg --resize crop
-
+awww img /tmp/eww-wall-online.jpg --resize crop --transition-type outer --transition-duration 1 --transition-angle 30
 echo "/tmp/eww-wall-online.jpg" > ~/dotfiles/eww/scripts/.wallpaper-actual
-matugen image /tmp/eww-wall-online.jpg --source-color-index 0
-
+matugen image /tmp/eww-wall-online.jpg --source-color-index 0 -t scheme-vibrant --contrast 1
 hyprctl reload
-
-sleep 0.5 && eww kill && eww open bar &
+sleep 0.5 && eww open bar
