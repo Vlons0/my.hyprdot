@@ -1,0 +1,193 @@
+
+
+# =========================
+# VARIABLES
+# =========================
+
+$mainMod = SUPER
+
+$terminal = kitty
+$fileManager = dolphin
+$menu = wofi --show drun
+
+# =========================
+# MONITOR
+# =========================
+
+monitor=,preferred,auto,1
+
+# =========================
+# AUTOSTART
+# =========================
+
+exec-once = ~/dotfiles/eww/scripts/wall-online
+exec-once = awww-daemon
+exec-once = nm-applet &
+exec-once = blueman-applet &
+exec-once = eww open bar
+
+# =========================
+# INPUT
+# =========================
+
+input {
+    kb_layout = latam
+
+    follow_mouse = 1
+
+    touchpad {
+        natural_scroll = false
+    }
+
+    sensitivity = 0
+}
+
+# =========================
+# GENERAL
+# =========================
+
+source = ~/.config/hypr/hypr-colors.conf
+
+general {
+    gaps_in = 5
+    gaps_out = 10
+
+    border_size = 2
+
+    col.active_border = $primary
+    col.inactive_border = $background
+
+    resize_on_border = true
+
+    layout = dwindle
+}
+
+# =========================
+# DECORATION
+# =========================
+
+
+
+decoration {
+    rounding = 8
+
+    active_opacity = 1.0
+    inactive_opacity = 0.5
+
+    blur {
+    enabled = true
+    size = 12
+    passes = 4
+    new_optimizations = true
+    vibrancy = 0.8
+    vibrancy_darkness = 0.5
+    ignore_opacity = true
+    xray = false
+}
+
+    shadow {
+        enabled = false
+    }
+}
+
+# =========================
+# ANIMATIONS
+# =========================
+
+animations {
+    enabled = true
+    bezier = crystal, 0.34, 1.56, 0.64, 1.0
+    bezier = crystalOut, 0.36, 0.0, 0.66, -0.56
+
+    animation = windows, 1, 4, crystal, popin 70%
+    animation = windowsOut, 1, 3, crystalOut, popin 90%
+    animation = windowsMove, 1, 3, crystal
+    animation = border, 1, 5, default
+    animation = fade, 1, 4, crystal
+    animation = layers, 1, 3, crystal, popin 80%
+    animation = workspaces, 1, 4, crystal, slide
+}
+
+# =========================
+# LAYOUTS
+# =========================
+
+dwindle {
+    preserve_split = true
+}
+
+master {
+    new_status = master
+}
+
+# =========================
+# GESTURES
+# =========================
+
+
+
+# =========================
+# WINDOW RULES
+# =========================
+
+
+source = ~/.config/hypr/rules.conf
+
+
+# =========================
+# KEYBINDS
+# =========================
+
+bind = CTRL ALT, Q, exec, wtype "@" 
+
+bind = $mainMod, T, exec, $terminal
+bind = $mainMod, E, exec, $fileManager
+bind = $mainMod, R, exec, $menu
+
+bind = $mainMod, Q, killactive
+bind = $mainMod SHIFT, E, exit
+
+bind = $mainMod, V, togglefloating
+bind = $mainMod, F, fullscreen
+
+bind = SHIFT, PRINT, exec, grim -g "$(slurp)" - | wl-copy
+
+binde = , XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bind  = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+
+
+binde = , XF86MonBrightnessUp, exec, brightnessctl set +5%
+binde = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
+# =========================
+# MOVE FOCUS
+# =========================
+
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# =========================
+# WORKSPACES
+# =========================
+
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+
+# =========================
+# MOUSE BINDS
+# =========================
+
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
