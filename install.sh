@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 1. Variables de paquetes
-PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd" "jq" "hyprpaper" "imagemagick" "awww" "papirus-icon-theme")
+PKGS=("kitty" "wofi" "amberol" "eww" "brightnessctl" "matugen-bin" "mpv" "gpu-screen-recorder-gtk-git" "ttf-jetbrains-mono-nerd" "jq" "hyprpaper" "imagemagick" "awww" "papirus-icon-theme" "flatpak" "wtype")
 
 # Variable para los paquetes que se instalarán exclusivamente con paru
 AUR_PACKAGES="hyprshade"

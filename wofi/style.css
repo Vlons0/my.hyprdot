@@ -4,16 +4,16 @@
 }
 
 #window {
-    background-color: #0d141c;
-    border: 2px solid #4dd9e4;
+    background-color: #18120b;
+    border: 2px solid #f3bd6e;
     border-radius: 12px;
-    color: #dde3ee;
+    color: #ede1d4;
 }
 
 #input {
-    background-color: #3b4858;
-    color: #dde3ee;
-    border: 1px solid #4dd9e4;
+    background-color: #4f4539;
+    color: #ede1d4;
+    border: 1px solid #f3bd6e;
     border-radius: 8px;
     padding: 8px;
     margin: 8px;
@@ -25,6 +25,6 @@
 }
 
 #entry:selected {
-    background-color: #4dd9e4;
-    color: #00363a;
+    background-color: #f3bd6e;
+    color: #442b00;
 }

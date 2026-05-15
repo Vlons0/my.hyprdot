@@ -1,7 +1,7 @@
 (defwindow bar
   :monitor 0
   :exclusive true
-  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
+  :geometry (geometry :x "-1%" :y "0%" :width "100%" :height "0px" :anchor "top center")
   (box :class "bar-container"
     (centerbox :orientation "h"
       (box :orientation "h" :space-evenly false :spacing 15
@@ -34,21 +34,21 @@
         (label :text "Estilo de Color" :class "sidebar-subtitle" :halign "start")
         (box :class "type-selector" :orientation "v" :spacing 5
           (button :onclick "~/dotfiles/eww/scripts/theme_man type vibrant" "󰏘 Vibrante")
-          (button :onclick "~/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
+          (button :onclick "~/dotfiles/eww/scripts/theme_man type expressive" " Expresivo")
           (button :onclick "~/dotfiles/eww/scripts/theme_man type monochrome" "󰔡 Monocromo")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Aplicaciones" :class "sidebar-title" :halign "start")
         (box :class "app-list" :orientation "v" :spacing 8
           (button :onclick "firefox &" "󰈹 Navegador")
-          (button :onclick "kitty &" " Terminal")
+          (button :onclick "kitty &" "󰄛 Terminal")
           (button :onclick "wlogout &" "⏻ Apagar")))
       (box :class "separator")
       (box :orientation "v" :space-evenly false :spacing 10
         (label :text "Wallpaper" :class "sidebar-title" :halign "start")
         (box :orientation "v" :spacing 8
-          (button :onclick "bash ~/dotfiles/eww/scripts/wall-online &" " Random Online")
-          (button :onclick "bash ~/dotfiles/eww/scripts/wall-local &" " Local Random"))))))
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-online &" " Random Online")
+          (button :onclick "bash ~/dotfiles/eww/scripts/wall-local &" "󱂵 Local Random"))))))
 
 (defwidget menu_trigger []
   (eventbox :onhover "eww open sidebar"
