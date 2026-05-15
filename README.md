@@ -8,4 +8,5 @@ Paso 3: ejecutar ./install.sh
 
 Espero se disfrute éste entorno para hyprland y espero poder seguir actualizandolo
 
-![Fondo](imagenes/wallpaper.png)
+![Fondo](imagenes/wallpaper.png) ![Fondo](imagenes/wallpaper2.png)
+
