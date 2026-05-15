@@ -8,4 +8,4 @@ Paso 3: ejecutar ./install.sh
 
 Espero se disfrute éste entorno para hyprland y espero poder seguir actualizandolo
 
-![] (my.hyprdot/imagenes/wallpaper.png)
+![Fondo](my.hyprdot/imagenes/wallpaper.png)
